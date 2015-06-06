@@ -5,16 +5,28 @@
 
 <body>
   <div id="container">
-    <div class="header">
-      <h1 class="title">#busICT</h1>
-    </div>
-    <div class="menu">
-      <ul class="route-list">
+
+    <!-- Off-canvas route menu -->
+    <nav id="menu" class="navmenu navmenu-default navmenu-fixed-left offcanvas" role="navigation">
+      <span class="navmenu-brand">Routes</span>
+      <ul class="nav navmenu-nav">
         {{#each routes}}
-          <li class="route-link" data-id="{{id}}">{{name}}</li>
+          <li><a class="route-link" data-id="{{id}}">{{name}}</a></li>
         {{/each}}
       </ul>
-    </div>
+    </nav>
+
+    <!-- Main header menu -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <button type="button" class="navbar-toggle pull-left" data-toggle="offcanvas" data-target="#menu" data-canvas="body">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+
+      <span class="pull-right navbar-brand">#busICT</span>
+    </nav>
+
     {{> map}}
   </div>
 </body>
