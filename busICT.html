@@ -4,12 +4,21 @@
 </head>
 
 <body>
+  <div id="container">
+    <div class="header">
+      <h1 class="title">#busICT</h1>
+    </div>
+    <div class="menu">
+      <ul class="route-list">
+        {{#each routes}}
+          <li class="route-link" data-id="{{id}}">{{name}}</li>
+        {{/each}}
+      </ul>
+    </div>
     {{> map}}
+  </div>
 </body>
 
 <template name="map">
-    <div id="container">
-      <h1 class="title">#busICT</h1>
-      <div id="map" class="map"></div>
-    </div>
+  <div id="map" class="map"></div>
 </template>

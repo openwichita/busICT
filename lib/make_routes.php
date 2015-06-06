@@ -6,7 +6,7 @@ $routes = [];
 foreach ($data["features"] as $route) {
   $id   = $route["properties"]["OBJECTID"];
   $name = $route["properties"]["NAME"];
-  $routes[$id] = ["name" => $name, "geojson" => $route];
+  $routes[] = ["id" => $id, "name" => $name, "geojson" => $route];
 }
 
 $json = json_encode($routes);

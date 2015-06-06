@@ -2,11 +2,31 @@ if (Meteor.isClient) {
   // Start centered on The Labor Party
   var startingLocation = [37.6890338, -97.327983];
 
+  var map;
+  var routeLayers = {};
+
+  Template.body.helpers({
+    routes: routes
+  })
+
+  Template.body.events({
+    "click .route-link": function (event) {
+      var routeID = event.originalEvent.target.dataset.id;
+      var layer = routeLayers[routeID].layer;
+
+      if (map.hasLayer(layer)) {
+        map.removeLayer(routeLayers[routeID].layer);
+      } else {
+        map.addLayer(routeLayers[routeID].layer);
+      }
+    }
+  });
+
   // When Template.map is rendered run this
   Template.map.rendered = function() {
     L.Icon.Default.imagePath = 'packages/bevanhunt_leaflet/images';
 
-    var map = L.map('map', {
+    map = L.map('map', {
       doubleClickZoom: false
     }).setView(startingLocation, 11);
 
@@ -16,12 +36,11 @@ if (Meteor.isClient) {
     // OpenMapSurfer.Roads
     L.tileLayer.provider('Thunderforest.Transport').addTo(map);
 
-    for (var routeID in routes) {
-      if (routes.hasOwnProperty(routeID)) {
-        route = routes[routeID]
-        L.geoJson(route.geojson).addTo(map);
-      }
-    }
+    routes.forEach(function(route) {
+      var layer = L.geoJson().addTo(map);
+      routeLayers[route.id] = {layer: layer, data: route.geojson};
+      layer.addData(route.geojson);
+    })
 
     // Set a window resize listener to set the map to the height of the
     // viewable area then force a resize for the initial load
