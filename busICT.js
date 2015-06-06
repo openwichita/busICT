@@ -28,6 +28,7 @@ if (Meteor.isClient) {
     $(function() {
       $(window).resize(function() {
         $('#map').css('height', window.innerHeight - 82 - 45);
+        map.invalidateSize();
       });
       $(window).resize(); // trigger resize event
     })
