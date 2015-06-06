@@ -8,19 +8,28 @@ if (Meteor.isClient) {
 
     var map = L.map('map', {
       doubleClickZoom: false
-    }).setView(startingLocation, 13);
+    }).setView(startingLocation, 11);
 
     // Set the "Theme" for the map. Other nice options are:
     // Thunderforest.Transport
     // MapQuestOpen.OSM
     // OpenMapSurfer.Roads
-    L.tileLayer.provider('OpenMapSurfer.Roads').addTo(map);
+    L.tileLayer.provider('Thunderforest.Transport').addTo(map);
+
+    for (var routeID in routes) {
+      if (routes.hasOwnProperty(routeID)) {
+        route = routes[routeID]
+        L.geoJson(route.geojson).addTo(map);
+      }
+    }
 
     // Set a window resize listener to set the map to the height of the
     // viewable area then force a resize for the initial load
-    $(window).resize(function() {
-      $('#map').css('height', window.innerHeight - 82 - 45);
-    });
-    $(window).resize(); // trigger resize event
+    $(function() {
+      $(window).resize(function() {
+        $('#map').css('height', window.innerHeight - 82 - 45);
+      });
+      $(window).resize(); // trigger resize event
+    })
   };
 }
