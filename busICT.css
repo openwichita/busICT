@@ -1,0 +1,23 @@
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial;
+}
+
+#container {
+  width: 100%;
+  margin: 15px auto 0 auto;
+}
+
+.map {
+  border: solid 1px black;
+}
+
+.title {
+  margin-top: 0;
+  margin-bottom: 10px;
+  text-align: center;
+}
