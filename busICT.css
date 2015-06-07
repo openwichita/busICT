@@ -1,4 +1,10 @@
 .map {
-  clear: both;
+  margin-top: 51px;
   border: solid 1px black;
+}
+
+.navbar-toggle {
+  display: block !important;
+  float: left;
+  margin-left: 10px;
 }

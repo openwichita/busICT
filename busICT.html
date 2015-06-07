@@ -11,14 +11,17 @@
       <span class="navmenu-brand">Routes</span>
       <ul class="nav navmenu-nav">
         {{#each routes}}
-          <li><a class="route-link" data-id="{{id}}">{{name}}</a></li>
+          <li><a class="route-link" href="#" data-id="{{id}}">
+              <span class="glyphicon glyphicon-check" aria-hidden="true" id="route-{{id}}-icon"></span>
+              {{name}}
+          </a></li>
         {{/each}}
       </ul>
     </nav>
 
     <!-- Main header menu -->
     <nav class="navbar navbar-default navbar-fixed-top">
-      <button type="button" class="navbar-toggle pull-left" data-toggle="offcanvas" data-target="#menu" data-canvas="body">
+      <button type="button" class="navbar-toggle" data-toggle="offcanvas" data-target="#menu" data-canvas="body">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>

@@ -11,13 +11,15 @@ if (Meteor.isClient) {
 
   Template.body.events({
     "click .route-link": function (event) {
-      var routeID = event.originalEvent.target.dataset.id;
-      var layer = routeLayers[routeID].layer;
+      var id = event.originalEvent.target.dataset.id;
+      var layer = routeLayers[id].layer;
 
       if (map.hasLayer(layer)) {
-        map.removeLayer(routeLayers[routeID].layer);
+        $('#route-'+id+'-icon').addClass('glyphicon-unchecked').removeClass('glyphicon-check');
+        map.removeLayer(routeLayers[id].layer);
       } else {
-        map.addLayer(routeLayers[routeID].layer);
+        $('#route-'+id+'-icon').addClass('glyphicon-check').removeClass('glyphicon-unchecked');
+        map.addLayer(routeLayers[id].layer);
       }
     }
   });
@@ -46,7 +48,7 @@ if (Meteor.isClient) {
     // viewable area then force a resize for the initial load
     $(function() {
       $(window).resize(function() {
-        $('#map').css('height', window.innerHeight - 82 - 45);
+        $('#map').css('height', window.innerHeight - 51);
         map.invalidateSize();
       });
       $(window).resize(); // trigger resize event
