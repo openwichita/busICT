@@ -5,6 +5,7 @@
 # but you can also edit it by hand.
 
 meteor-platform
-accounts-ui
-accounts-password
 bevanhunt:leaflet
+nemo64:bootstrap
+less
+suxez:jasny-bootstrap

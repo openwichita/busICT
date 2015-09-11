@@ -4,12 +4,36 @@
 </head>
 
 <body>
+  <div id="container">
+
+    <!-- Off-canvas route menu -->
+    <nav id="menu" class="navmenu navmenu-default navmenu-fixed-left offcanvas" role="navigation">
+      <span class="navmenu-brand">Routes</span>
+      <ul class="nav navmenu-nav">
+        {{#each routes}}
+          <li><a class="route-link" href="#" data-id="{{id}}">
+              <span class="glyphicon glyphicon-check" aria-hidden="true" id="route-{{id}}-icon"></span>
+              {{name}}
+          </a></li>
+        {{/each}}
+      </ul>
+    </nav>
+
+    <!-- Main header menu -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <button type="button" class="navbar-toggle" data-toggle="offcanvas" data-target="#menu" data-canvas="body">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+
+      <span class="pull-right navbar-brand">#busICT</span>
+    </nav>
+
     {{> map}}
+  </div>
 </body>
 
 <template name="map">
-    <div id="container">
-      <h1 class="title">#busICT</h1>
-      <div id="map" class="map"></div>
-    </div>
+  <div id="map" class="map"></div>
 </template>
