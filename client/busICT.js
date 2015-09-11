@@ -1,14 +1,30 @@
 // Start centered on The Labor Party
 var startingLocation = [37.6890338, -97.327983];
+<<<<<<< HEAD
 var currentLocation;
+=======
+>>>>>>> playing with server/client folders, fetching GETs
 
 var map;
 var routeLayers = {};
 
+<<<<<<< HEAD
 Template.body.helpers({
   routes: routes,
   stops: stops
 })
+=======
+
+Template.body.helpers({
+  getRoutes: Meteor.call("fetchNewRoutes", function(error, result)  {
+            if(error) {
+              console.log('freakin error', error);
+              return;
+            }
+            console.log('IT WORKED.  ONLY IT PROBABLY WONT... HERE IS RESULT', result);
+          })
+});
+>>>>>>> playing with server/client folders, fetching GETs
 
 Template.body.events({
   "click .route-link": function (event) {
@@ -40,6 +56,7 @@ Template.map.rendered = function() {
   L.tileLayer.provider('Thunderforest.Transport').addTo(map);
 
   routes.forEach(function(route) {
+<<<<<<< HEAD
     var layer = L.geoJson();
     routeLayers[route.id] = {layer: layer, data: route.geojson};
     layer.addData(route.geojson);
@@ -77,6 +94,12 @@ Template.map.rendered = function() {
       .bindPopup('<b>This is you!</b><br>All stops are marked on your map')
       .openPopup();
   })
+=======
+    var layer = L.geoJson().addTo(map);
+    routeLayers[route.id] = {layer: layer, data: route.geojson};
+    layer.addData(route.geojson);
+  });
+>>>>>>> playing with server/client folders, fetching GETs
 
   // Set a window resize listener to set the map to the height of the
   // viewable area then force a resize for the initial load
@@ -88,4 +111,7 @@ Template.map.rendered = function() {
     $(window).resize(); // trigger resize event
   })
 };
+<<<<<<< HEAD
 
+=======
+>>>>>>> playing with server/client folders, fetching GETs
