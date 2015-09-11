@@ -4,6 +4,7 @@ var currentLocation;
 
 var map;
 var routeLayers = {};
+var busMarkers = {};
 
 Template.body.helpers({
   routes: routes,
@@ -87,5 +88,30 @@ Template.map.rendered = function() {
     });
     $(window).resize(); // trigger resize event
   })
+
+ // Add an observer on the Busses collection to add/move/remove bus markers
+ // when the collection changes.
+ Busses.find().observeChanges({
+   added: function(id, bus) {
+     // TODO when making this marker use a custom icon of a bus
+     busMarkers[id] = L.marker([bus.lat, bus.lng]).addTo(map);
+   },
+   changed: function(id, bus) {
+     // Update the lat and long on the marker. The `bus` var provided only
+     // has what's changed so we have to get the current latLng and update
+     // just the changed part.
+     var latLng = busMarkers[id].getLatLng();
+     if (bus.lat) {
+       latLng.lat = bus.lat;
+     }
+     if (bus.lng) {
+       latLng.lng = bus.lng;
+     }
+     busMarkers[id].setLatLng(latLng);
+   },
+   removed: function(id, bus) {
+     map.removeLayer(busMarkers[id]);
+   },
+ });
 };
 
