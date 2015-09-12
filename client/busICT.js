@@ -5,7 +5,8 @@ var map;
 var routeLayers = {};
 
 Template.body.helpers({
-  routes: routes
+  routes: routes,
+  stops: stops
 })
 
 Template.body.events({
@@ -41,6 +42,17 @@ Template.map.rendered = function() {
     var layer = L.geoJson().addTo(map);
     routeLayers[route.id] = {layer: layer, data: route.geojson};
     layer.addData(route.geojson);
+  })
+
+  // Add bus stops to map
+  var lat, lon, title_text, coordinates;
+  stops.forEach(function(stop) {
+    coordinates = stop.geojson.coordinates;
+    lat = coordinates[1];
+    lon = coordinates[0];
+    title_text = stop.route + ": " + stop.location;
+
+    L.marker([lat, lon], { title: title_text  }).addTo(map);
   })
 
   // Set a window resize listener to set the map to the height of the
