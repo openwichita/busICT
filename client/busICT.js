@@ -7,13 +7,7 @@ var routeLayers = {};
 
 Template.body.helpers({
   routes: routes,
-  stops: stops,
-  lat: function() {
-    return Session.get('lat');
-  },
-  lon: function() {
-    return Session.get('lon');
-  }
+  stops: stops
 })
 
 Template.body.events({
@@ -37,7 +31,7 @@ Template.map.rendered = function() {
 
   map = L.map('map', {
     doubleClickZoom: false
-  }).setView(startingLocation, 15);
+  }).setView(startingLocation, 11);
 
   // Set the "Theme" for the map. Other nice options are:
   // Thunderforest.Transport
@@ -65,23 +59,18 @@ Template.map.rendered = function() {
   // find current location then pan to location
   // Using geolocation api for browser location for now
   navigator.geolocation.watchPosition(function(position) {
-    console.log(position);
-    
     var lat = position.coords.latitude;
     var lon = position.coords.longitude;
 
     map.panTo([lat, lon]);
+    map.setZoom(14); // hard to see current location without zoom
 
     if(!currentLocation){
-      currentLocation = L.marker([lat, lon]).addTo(map);
+      var options = {alt: 'Current Location Marker'}; // for accessibility
+      currentLocation = L.marker([lat, lon], options).addTo(map);
     }
-    currentLocation.setLatLng([lat, lon]).update();
 
-    // var circle = L.circle([lat, lon], 100, {
-    //   color: 'red',
-    //   fillColor: '#f03',
-    //   fillOpacity: 0.5
-    // }).addTo(map);
+    currentLocation.setLatLng([lat, lon]).update();
 
     //show popup message to distinguish you from bus stop marker
     currentLocation
