@@ -1,5 +1,6 @@
 // Start centered on The Labor Party
 var startingLocation = [37.6890338, -97.327983];
+var currentLocation;
 
 var map;
 var routeLayers = {};
@@ -32,29 +33,11 @@ Template.body.events({
 
 // When Template.map is rendered run this
 Template.map.rendered = function() {
-  // var lat = Session.get('lat');
-  // var lon = Session.get('lon');
-  //
-  // var currentLocation = [lat, lon];
-
   L.Icon.Default.imagePath = 'packages/bevanhunt_leaflet/images';
 
   map = L.map('map', {
     doubleClickZoom: false
   }).setView(startingLocation, 15);
-
-  // Session.set('map', map)
-  // goToCurrentLocation();
-
-  // L.marker(currentLocation).addTo(map);
-  
-  //
-  // L.circle(currentLocation, 500, {
-  //   color: 'red',
-  //   fillColor: '#f03',
-  //   fillOpacity: 0.5
-  // }).addTo(map);
-
 
   // Set the "Theme" for the map. Other nice options are:
   // Thunderforest.Transport
@@ -79,22 +62,31 @@ Template.map.rendered = function() {
     L.marker([lat, lon], { title: title_text  }).addTo(map);
   })
 
-  //pan to current location after it's found
+  // find current location then pan to location
+  // Using geolocation api for browser location for now
   navigator.geolocation.watchPosition(function(position) {
-
+    console.log(position);
+    
     var lat = position.coords.latitude;
     var lon = position.coords.longitude;
 
     map.panTo([lat, lon]);
 
-    var marker = L.marker([lat, lon]).addTo(map);
+    if(!currentLocation){
+      currentLocation = L.marker([lat, lon]).addTo(map);
+    }
+    currentLocation.setLatLng([lat, lon]).update();
+
     // var circle = L.circle([lat, lon], 100, {
     //   color: 'red',
     //   fillColor: '#f03',
     //   fillOpacity: 0.5
     // }).addTo(map);
 
-    marker.bindPopup('<b>This is you!</b><br>All stops are marked on your map').openPopup();
+    //show popup message to distinguish you from bus stop marker
+    currentLocation
+      .bindPopup('<b>This is you!</b><br>All stops are marked on your map')
+      .openPopup();
   })
 
   // Set a window resize listener to set the map to the height of the
