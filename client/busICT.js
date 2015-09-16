@@ -40,7 +40,7 @@ Template.map.rendered = function() {
   L.tileLayer.provider('Thunderforest.Transport').addTo(map);
 
   routes.forEach(function(route) {
-    var layer = L.geoJson().addTo(map);
+    var layer = L.geoJson();
     routeLayers[route.id] = {layer: layer, data: route.geojson};
     layer.addData(route.geojson);
   })
