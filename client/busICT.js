@@ -1,5 +1,6 @@
 // Start centered on The Labor Party
 var startingLocation = [37.6890338, -97.327983];
+var currentLocation;
 
 var map;
 var routeLayers = {};
@@ -39,7 +40,7 @@ Template.map.rendered = function() {
   L.tileLayer.provider('Thunderforest.Transport').addTo(map);
 
   routes.forEach(function(route) {
-    var layer = L.geoJson().addTo(map);
+    var layer = L.geoJson();
     routeLayers[route.id] = {layer: layer, data: route.geojson};
     layer.addData(route.geojson);
   })
@@ -55,6 +56,28 @@ Template.map.rendered = function() {
     L.marker([lat, lon], { title: title_text  }).addTo(map);
   })
 
+  // find current location then pan to location
+  // Using geolocation api for browser location for now
+  navigator.geolocation.watchPosition(function(position) {
+    var lat = position.coords.latitude;
+    var lon = position.coords.longitude;
+
+    map.panTo([lat, lon]);
+    map.setZoom(14); // hard to see current location without zoom
+
+    if(!currentLocation){
+      var options = {alt: 'Current Location Marker'}; // for accessibility
+      currentLocation = L.marker([lat, lon], options).addTo(map);
+    }
+
+    currentLocation.setLatLng([lat, lon]).update();
+
+    //show popup message to distinguish you from bus stop marker
+    currentLocation
+      .bindPopup('<b>This is you!</b><br>All stops are marked on your map')
+      .openPopup();
+  })
+
   // Set a window resize listener to set the map to the height of the
   // viewable area then force a resize for the initial load
   $(function() {
@@ -65,3 +88,4 @@ Template.map.rendered = function() {
     $(window).resize(); // trigger resize event
   })
 };
+
