@@ -10,19 +10,6 @@ Template.body.helpers({
   stops: stops
 })
 
-// TODO: hitjim@gmail.com - don't know why this isn't working yet.
-// Template.body.helpers({
-//   routes: Meteor.call("getNewRoutes", function(error, result)  {
-//             if(error) {
-//               console.log('freakin error', error);
-//               // return routes;
-//             }
-//             // return result;
-//             console.log('IT WORKED.  ONLY IT PROBABLY WONT... HERE IS RESULT', result);
-//           }),
-//   stops: stops
-// });
-
 Template.body.events({
   "click .route-link": function (event) {
     var id = event.originalEvent.target.dataset.id;
@@ -53,7 +40,6 @@ Template.map.rendered = function() {
   L.tileLayer.provider('Thunderforest.Transport').addTo(map);
 
   routes.forEach(function(route) {
-<<<<<<< HEAD
     var layer = L.geoJson();
     routeLayers[route.id] = {layer: layer, data: route.geojson};
     layer.addData(route.geojson);
@@ -91,12 +77,6 @@ Template.map.rendered = function() {
       .bindPopup('<b>This is you!</b><br>All stops are marked on your map')
       .openPopup();
   })
-=======
-    var layer = L.geoJson().addTo(map);
-    routeLayers[route.id] = {layer: layer, data: route.geojson};
-    layer.addData(route.geojson);
-  });
->>>>>>> d49ed8913e186ec67d1d9736625bf45975368d7b
 
   // Set a window resize listener to set the map to the height of the
   // viewable area then force a resize for the initial load
