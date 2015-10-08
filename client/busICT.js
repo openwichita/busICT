@@ -53,6 +53,7 @@ Template.map.rendered = function() {
   L.tileLayer.provider('Thunderforest.Transport').addTo(map);
 
   routes.forEach(function(route) {
+<<<<<<< HEAD
     var layer = L.geoJson();
     routeLayers[route.id] = {layer: layer, data: route.geojson};
     layer.addData(route.geojson);
@@ -90,6 +91,12 @@ Template.map.rendered = function() {
       .bindPopup('<b>This is you!</b><br>All stops are marked on your map')
       .openPopup();
   })
+=======
+    var layer = L.geoJson().addTo(map);
+    routeLayers[route.id] = {layer: layer, data: route.geojson};
+    layer.addData(route.geojson);
+  });
+>>>>>>> d49ed8913e186ec67d1d9736625bf45975368d7b
 
   // Set a window resize listener to set the map to the height of the
   // viewable area then force a resize for the initial load
