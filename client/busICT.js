@@ -5,20 +5,23 @@ var currentLocation;
 var map;
 var routeLayers = {};
 
-// Template.body.helpers({
-//   routes: routes,
-//   stops: stops
-// })
-
 Template.body.helpers({
-  getRoutes: Meteor.call("fetchNewRoutes", function(error, result)  {
-            if(error) {
-              console.log('freakin error', error);
-              return;
-            }
-            console.log('IT WORKED.  ONLY IT PROBABLY WONT... HERE IS RESULT', result);
-          })
-});
+  routes: routes,
+  stops: stops
+})
+
+// TODO: hitjim@gmail.com - don't know why this isn't working yet.
+// Template.body.helpers({
+//   routes: Meteor.call("getNewRoutes", function(error, result)  {
+//             if(error) {
+//               console.log('freakin error', error);
+//               // return routes;
+//             }
+//             // return result;
+//             console.log('IT WORKED.  ONLY IT PROBABLY WONT... HERE IS RESULT', result);
+//           }),
+//   stops: stops
+// });
 
 Template.body.events({
   "click .route-link": function (event) {
