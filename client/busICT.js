@@ -88,4 +88,3 @@ Template.map.rendered = function() {
     $(window).resize(); // trigger resize event
   })
 };
-
