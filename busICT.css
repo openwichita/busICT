@@ -1,4 +1,5 @@
 .map {
+  visibility: hidden;
   margin-top: 51px;
   border: solid 1px black;
 }
@@ -7,4 +8,66 @@
   display: block !important;
   float: left;
   margin-left: 10px;
+}
+#route-selector {
+    width: 95%;
+    position: absolute;
+    margin-top: 0px;
+    padding-top: 25px;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+}
+.route-selector-title {
+    font-size: 4em;
+    text-align: center;
+    width: 45%;
+    padding: 10px;
+    margin: 10px;
+}
+.route-button {
+    font-size: 4em;
+    text-decoration: none;
+    border-style: solid;
+    width: 45%;
+    padding: 10px;
+    margin: 10px;
+    text-decoration: none;
+    text-align: center;
+    background-color: bisque;
+    border-radius: 45px;
+}
+.route-button:hover {
+    cursor: pointer;
+    text-decoration: none;
+}
+/* Medium screens */
+@media all and (max-width: 1000px) {
+  #route-selector {
+    /* When on medium sized screens, we center it by evenly distributing empty space around items */
+    justify-content: space-around;
+  }
+  .route-selector-title {
+      width: 100%;
+      font-size: 3em;
+  }
+  .route-button {
+        width: 100%;
+    }
+}
+
+/* Small screens */
+@media all and (max-width: 500px) {
+  #route-selector {
+    /* On small screens, we are no longer using row direction but column */
+    flex-direction: column;
+  }
+  .route-selector-title {
+      width: 100%;
+      font-size: 3em;
+  }
+  .route-button {
+        width: 100%;
+        font-size: 3em;
+    }
 }
