@@ -53,7 +53,15 @@ Template.map.rendered = function() {
     lon = coordinates[0];
     title_text = stop.route + ": " + stop.location;
 
-    L.marker([lat, lon], { title: title_text  }).addTo(map);
+    var stopIcon = L.icon({
+      iconUrl: '/stop-icon.png',
+      iconRetinaUrl: '/stop-icon-2x.png',
+      iconSize: [28, 101],
+      iconAnchor: [22, 94],
+      popupAnchor: [-3, -76]
+    });
+
+    L.marker([lat, lon], { title: title_text, icon: stopIcon }).addTo(map);
   })
 
   // find current location then pan to location
