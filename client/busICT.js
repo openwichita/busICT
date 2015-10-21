@@ -22,6 +22,14 @@ Template.body.events({
       $('#route-'+id+'-icon').addClass('glyphicon-check').removeClass('glyphicon-unchecked');
       map.addLayer(routeLayers[id].layer);
     }
+  },
+  "click .route-button": function (event) {
+    var id = event.originalEvent.target.dataset.id;
+    var layer = routeLayers[id].layer;
+    $('#route-selector').css('visibility', 'hidden');
+    $('#map').css('visibility', 'visible');
+    map.addLayer(routeLayers[id].layer);
+    $('#route-'+id+'-icon').addClass('glyphicon-check').removeClass('glyphicon-unchecked');
   }
 });
 

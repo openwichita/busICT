@@ -30,10 +30,15 @@
       <span class="pull-right navbar-brand">#busICT</span>
     </nav>
 
+  <div id="route-selector">
+  <p class="route-selector-title">Select a Route:</p>
+    {{#each routes}}
+      <a class="route-button" data-id="{{id}}">{{name}}</a>
+    {{/each}}
+  </div>
     {{> map}}
   </div>
 </body>
-
 <template name="map">
   <div id="map" class="map"></div>
 </template>
